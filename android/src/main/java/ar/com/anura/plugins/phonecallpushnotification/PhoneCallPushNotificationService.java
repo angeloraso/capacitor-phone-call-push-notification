@@ -33,7 +33,7 @@ import java.util.Map;
 public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     private static final Handler sHandler = new Handler(Looper.getMainLooper());
 
-    private static final String TAG = "PushNotificationService";
+    private static final String TAG = "PhoneCallPushNotificationService";
 
     @Override
     public void onNewToken(@NonNull final String token) {

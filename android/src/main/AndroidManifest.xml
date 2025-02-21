@@ -11,7 +11,7 @@
 
     <application>
         <service
-            android:name=".PushNotificationService"
+            android:name=".PhoneCallPushNotificationService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
