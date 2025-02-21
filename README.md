@@ -53,10 +53,10 @@ requestPermissions() => Promise<PermissionStatus>
 ### getData()
 
 ```typescript
-getData() => Promise<{ response: string; callId: string; }>
+getData() => Promise<{ response: string; origin: string; expiration: number; }>
 ```
 
-**Returns:** <code>Promise&lt;{ response: string; callId: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ response: string; origin: string; expiration: number; }&gt;</code>
 
 --------------------
 
