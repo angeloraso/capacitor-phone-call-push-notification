@@ -1,2 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Starting Android 13 we need to ask notification permission -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Needed for full screen intent in incoming call notifications -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- To vibrate while receiving an incoming call -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Needed for foreground service
+    (https://developer.android.com/guide/components/foreground-services) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <application>
+        <service
+            android:name=".PushNotificationService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".PhoneCallFullPushNotificationActivity"
+            android:enabled="true"
+            android:launchMode="singleTask"
+            android:exported="false" >
+        </activity>
+
+        <activity
+            android:name=".PhoneCallPushNotificationActivity"
+            android:enabled="true"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:exported="false" >
+        </activity>
+
+    </application>
 </manifest>
