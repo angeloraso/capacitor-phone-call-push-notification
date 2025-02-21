@@ -11,7 +11,7 @@ export class PhoneCallPushNotificationWeb extends WebPlugin implements PhoneCall
     throw this.unimplemented('Not implemented on web.');
   }
 
-  async getData(): Promise<{response: string, callId: string}> {
+  async getData(): Promise<{response: string, origin: string, expiration: number}> {
     throw this.unimplemented('Not implemented on web.');
   }
 
