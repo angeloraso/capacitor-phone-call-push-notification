@@ -24,7 +24,7 @@ import java.util.Objects;
         name = "PhoneCallPushNotification",
         permissions = @Permission(
                 strings = { Manifest.permission.POST_NOTIFICATIONS },
-                alias = PhoneCallPushNotificationPlugin.PHONE_CALL_NOTIFICATIONS
+                alias = PhoneCallPushNotificationPlugin.PHONE_CALL_PUSH_NOTIFICATIONS
         )
 )
 
@@ -33,7 +33,7 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
 
     private static boolean isAppInForeground = false;
 
-    static final String PHONE_CALL_NOTIFICATIONS = "display";
+    static final String PHONE_CALL_PUSH_NOTIFICATIONS = "display";
 
     public void load() {
         staticBridge = this.bridge;
@@ -69,7 +69,7 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
 
     public static PhoneCallPushNotificationPlugin getPhoneCallNotificationInstance() {
         if (staticBridge != null && staticBridge.getWebView() != null) {
-            PluginHandle handle = staticBridge.getPlugin("PhoneCallPushNotificationPlugin");
+            PluginHandle handle = staticBridge.getPlugin("PhoneCallPushNotification");
             if (handle == null) {
                 return null;
             }
@@ -82,7 +82,7 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
     public void checkPermissions(PluginCall call) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             JSObject permissionsResultJSON = new JSObject();
-            permissionsResultJSON.put(PHONE_CALL_NOTIFICATIONS, getNotificationPermissionText());
+            permissionsResultJSON.put(PHONE_CALL_PUSH_NOTIFICATIONS, getNotificationPermissionText());
             call.resolve(permissionsResultJSON);
         } else {
             super.checkPermissions(call);
@@ -93,11 +93,11 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
     public void requestPermissions(PluginCall call) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             JSObject permissionsResultJSON = new JSObject();
-            permissionsResultJSON.put(PHONE_CALL_NOTIFICATIONS, getNotificationPermissionText());
+            permissionsResultJSON.put(PHONE_CALL_PUSH_NOTIFICATIONS, getNotificationPermissionText());
             call.resolve(permissionsResultJSON);
         } else {
-            if (getPermissionState(PHONE_CALL_NOTIFICATIONS) != PermissionState.GRANTED) {
-                requestPermissionForAlias(PHONE_CALL_NOTIFICATIONS, call, "permissionsCallback");
+            if (getPermissionState(PHONE_CALL_PUSH_NOTIFICATIONS) != PermissionState.GRANTED) {
+                requestPermissionForAlias(PHONE_CALL_PUSH_NOTIFICATIONS, call, "permissionsCallback");
             }
         }
     }
@@ -150,7 +150,7 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
     @PermissionCallback
     private void permissionsCallback(PluginCall call) {
         JSObject permissionsResultJSON = new JSObject();
-        permissionsResultJSON.put(PHONE_CALL_NOTIFICATIONS, getNotificationPermissionText());
+        permissionsResultJSON.put(PHONE_CALL_PUSH_NOTIFICATIONS, getNotificationPermissionText());
         call.resolve(permissionsResultJSON);
     }
 
