@@ -129,7 +129,7 @@ public class PhoneCallPushNotificationSettings {
         String channelName = preferences.getString("channelName", DEFAULT_CHANNEL_NAME);
         String channelDescription = preferences.getString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
 
-        return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, duration, channelName, channelDescription);
+        return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
     }
 
     public static void clear(Context context) {
