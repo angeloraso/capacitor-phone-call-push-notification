@@ -53,10 +53,10 @@ requestPermissions() => Promise<PermissionStatus>
 ### getData()
 
 ```typescript
-getData() => Promise<{ response: string; origin: string; expiration: number; }>
+getData() => Promise<{ response: string; origin: string; timestamp: number; }>
 ```
 
-**Returns:** <code>Promise&lt;{ response: string; origin: string; expiration: number; }&gt;</code>
+**Returns:** <code>Promise&lt;{ response: string; origin: string; timestamp: number; }&gt;</code>
 
 --------------------
 
@@ -122,7 +122,6 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 
 | Prop                     | Type                |
 | ------------------------ | ------------------- |
-| **`duration`**           | <code>number</code> |
 | **`icon`**               | <code>string</code> |
 | **`declineButtonText`**  | <code>string</code> |
 | **`declineButtonColor`** | <code>string</code> |

@@ -8,24 +8,32 @@ import java.util.Objects;
 public class PhoneCallPushNotificationSettings {
     public static final String PREFERENCES_KEY = "PhoneCallPushNotificationSettingsKey";
 
-    private String icon = "answer";
-    private String declineButtonText = "Decline";
-    private String declineButtonColor = "#e76565";
-    private String answerButtonText = "Answer";
-    private String answerButtonColor = "#65bf6c";
-    private String color = "#55335A";
-    private int duration = 20000;
-    private String channelName = "phone-call-push-notification";
-    private String channelDescription = "Phone call push notification";
+    public static final String DEFAULT_ICON = "answer";
+    public static final String DEFAULT_DECLINE_BUTTON_TEXT = "Decline";
+    public static final String DEFAULT_DECLINE_BUTTON_COLOR = "#E76565";
+    public static final String DEFAULT_ANSWER_BUTTON_TEXT = "Answer";
+    public static final String DEFAULT_ANSWER_BUTTON_COLOR = "#65BF6C";
+    public static final String DEFAULT_COLOR = "#55335A";
+    public static final String DEFAULT_CHANNEL_NAME = "phone-call-push-notification";
+    public static final String DEFAULT_CHANNEL_DESCRIPTION = "Phone call push notifications";
 
-    public PhoneCallPushNotificationSettings(String icon, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, int duration, String channelName, String channelDescription) {
+
+    private String icon;
+    private String declineButtonText;
+    private String declineButtonColor;
+    private String answerButtonText;
+    private String answerButtonColor;
+    private String color;
+    private String channelName;
+    private String channelDescription;
+
+    public PhoneCallPushNotificationSettings(String icon, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription) {
         this.icon = icon;
         this.declineButtonText = declineButtonText;
         this.declineButtonColor = declineButtonColor;
         this.answerButtonText = answerButtonText;
         this.answerButtonColor = answerButtonColor;
         this.color = color;
-        this.duration = duration;
         this.channelName = channelName;
         this.channelDescription = channelDescription;
     }
@@ -78,14 +86,6 @@ public class PhoneCallPushNotificationSettings {
         this.color = color;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     public String getChannelName() {
         return channelName;
     }
@@ -106,30 +106,28 @@ public class PhoneCallPushNotificationSettings {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putString("icon", Objects.requireNonNullElse(settings.getIcon(), "answer"));
-        editor.putString("declineButtonText", Objects.requireNonNullElse(settings.getDeclineButtonText(), "Decline"));
-        editor.putString("declineButtonColor", Objects.requireNonNullElse(settings.getDeclineButtonColor(), "#e76565"));
-        editor.putString("answerButtonText", Objects.requireNonNullElse(settings.getAnswerButtonText(), "Answer"));
-        editor.putString("answerButtonColor", Objects.requireNonNullElse(settings.getAnswerButtonColor(), "#65bf6c"));
-        editor.putString("color", Objects.requireNonNullElse(settings.getColor(), "#55335A"));
-        editor.putInt("duration", Objects.requireNonNullElse(settings.getDuration(), 20000));
-        editor.putString("channelName", Objects.requireNonNullElse(settings.getChannelName(), "phone-call-push-notification"));
-        editor.putString("channelDescription", Objects.requireNonNullElse(settings.getChannelDescription(), "Phone call push notifications"));
+        editor.putString("icon", Objects.requireNonNullElse(settings.getIcon(), DEFAULT_ICON));
+        editor.putString("declineButtonText", Objects.requireNonNullElse(settings.getDeclineButtonText(), DEFAULT_DECLINE_BUTTON_TEXT));
+        editor.putString("declineButtonColor", Objects.requireNonNullElse(settings.getDeclineButtonColor(), DEFAULT_DECLINE_BUTTON_COLOR));
+        editor.putString("answerButtonText", Objects.requireNonNullElse(settings.getAnswerButtonText(), DEFAULT_ANSWER_BUTTON_TEXT));
+        editor.putString("answerButtonColor", Objects.requireNonNullElse(settings.getAnswerButtonColor(), DEFAULT_ANSWER_BUTTON_COLOR));
+        editor.putString("color", Objects.requireNonNullElse(settings.getColor(), DEFAULT_COLOR));
+        editor.putString("channelName", Objects.requireNonNullElse(settings.getChannelName(), DEFAULT_CHANNEL_NAME));
+        editor.putString("channelDescription", Objects.requireNonNullElse(settings.getChannelDescription(), DEFAULT_CHANNEL_DESCRIPTION));
         editor.apply();
     }
 
     public static PhoneCallPushNotificationSettings getSettings(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
 
-        String icon = preferences.getString("icon", "answer");
-        String declineButtonText = preferences.getString("declineButtonText", "Decline");
-        String declineButtonColor = preferences.getString("declineButtonColor", "#e76565");
-        String answerButtonText = preferences.getString("answerButtonText", "Answer");
-        String answerButtonColor = preferences.getString("answerButtonColor", "#65bf6c");
-        String color = preferences.getString("color", "#55335A");
-        int duration = preferences.getInt("duration", 20000);
-        String channelName = preferences.getString("channelName", "phone-call-push-notification");
-        String channelDescription = preferences.getString("channelDescription", "Phone call push notification");
+        String icon = preferences.getString("icon", DEFAULT_ICON);
+        String declineButtonText = preferences.getString("declineButtonText", DEFAULT_DECLINE_BUTTON_TEXT);
+        String declineButtonColor = preferences.getString("declineButtonColor", DEFAULT_DECLINE_BUTTON_COLOR);
+        String answerButtonText = preferences.getString("answerButtonText", DEFAULT_ANSWER_BUTTON_TEXT);
+        String answerButtonColor = preferences.getString("answerButtonColor", DEFAULT_ANSWER_BUTTON_COLOR);
+        String color = preferences.getString("color", DEFAULT_COLOR);
+        String channelName = preferences.getString("channelName", DEFAULT_CHANNEL_NAME);
+        String channelDescription = preferences.getString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
 
         return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, duration, channelName, channelDescription);
     }
@@ -137,15 +135,14 @@ public class PhoneCallPushNotificationSettings {
     public static void clear(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("icon", "answer");
-        editor.putString("declineButtonText", "Decline");
-        editor.putString("declineButtonColor", "#e76565");
-        editor.putString("answerButtonText", "Answer");
-        editor.putString("answerButtonColor", "#65bf6c");
-        editor.putString("color", "#55335A");
-        editor.putInt("duration", 20000);
-        editor.putString("channelName", "phone-call-push-notification");
-        editor.putString("channelDescription", "Phone call push notifications");
+        editor.putString("icon", DEFAULT_ICON);
+        editor.putString("declineButtonText", DEFAULT_DECLINE_BUTTON_TEXT);
+        editor.putString("declineButtonColor", DEFAULT_DECLINE_BUTTON_COLOR);
+        editor.putString("answerButtonText", DEFAULT_ANSWER_BUTTON_TEXT);
+        editor.putString("answerButtonColor", DEFAULT_ANSWER_BUTTON_COLOR);
+        editor.putString("color", DEFAULT_COLOR);
+        editor.putString("channelName", DEFAULT_CHANNEL_NAME);
+        editor.putString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
         editor.apply();
     }
 }

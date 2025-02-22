@@ -27,13 +27,13 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONObject;
 
-import java.time.Instant;
 import java.util.Map;
 
 public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     private static final Handler sHandler = new Handler(Looper.getMainLooper());
 
     private static final String TAG = "PhoneCallPushNotificationService";
+    private static final long REMOVE_NOTIFICATION_AFTER_DELAY = 90000;
 
     @Override
     public void onNewToken(@NonNull final String token) {
@@ -77,10 +77,8 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     Map<String, String> data = remoteMessage.getData();
     String title = data.get("from_display_name");
     String body = data.get("from_display_name");
-    String origin = data.get("from_display_name");;
-    Instant now = Instant.now();
-    Instant expiration = now.plusMillis(settings.getDuration());
-    int futureTimestampInt = (int) expiration.getEpochSecond();
+    String origin = data.get("from_display_name");
+    long timestamp = System.currentTimeMillis();
 
     Notification.Builder notificationBuilder = new Notification.Builder(this, settings.getChannelName())
       .setContentTitle(settings.getChannelName())
@@ -89,7 +87,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
       .setWhen(System.currentTimeMillis())
       .setVisibility(Notification.VISIBILITY_PUBLIC)
       .setAutoCancel(true)
-      .setContentIntent(getPendingIntent(context, NOTIFICATION_ID, TAP_ACTION, origin, futureTimestampInt))
+      .setContentIntent(getPendingIntent(context, NOTIFICATION_ID, TAP_ACTION, origin, timestamp))
       .setColor(Color.parseColor(settings.getColor()))
       .setLocalOnly(true);
 
@@ -122,7 +120,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
 
       Notification.CallStyle notificationStyle;
       notificationStyle =
-        Notification.CallStyle.forIncomingCall(caller, getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, futureTimestampInt), getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, futureTimestampInt));
+        Notification.CallStyle.forIncomingCall(caller, getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, timestamp), getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, timestamp));
 
       notificationStyle.setAnswerButtonColorHint(Color.parseColor(settings.getAnswerButtonColor()));
       notificationStyle.setDeclineButtonColorHint(Color.parseColor(settings.getDeclineButtonColor()));
@@ -143,7 +141,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
             "</font>",
           Html.FROM_HTML_MODE_LEGACY
         ),
-        getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, futureTimestampInt)
+        getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, timestamp)
       ).build();
 
       Notification.Action answerAction = new Notification.Action.Builder(
@@ -156,7 +154,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
             "</font>",
           Html.FROM_HTML_MODE_LEGACY
         ),
-        getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, futureTimestampInt)
+        getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, timestamp)
       ).build();
 
       notificationBuilder.setActions(declineAction, answerAction);
@@ -168,6 +166,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
 
     Notification notification = notificationBuilder.build();
     notificationManager.notify(NOTIFICATION_ID, notification);
+    removeNotificationAfterDelay(context, NOTIFICATION_ID, REMOVE_NOTIFICATION_AFTER_DELAY);
   }
 
   @NonNull
@@ -183,11 +182,11 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     return notificationChannel;
   }
 
-  private PendingIntent getPendingIntent(Context context, int notificationId, String action, String origin, int expiration) {
+  private PendingIntent getPendingIntent(Context context, int notificationId, String action, String origin, long timestamp) {
     Intent intent = new Intent(context, PhoneCallPushNotificationActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     intent.putExtra("notificationId", notificationId);
-    intent.putExtra("expiration", expiration);
+    intent.putExtra("timestamp", timestamp);
     intent.putExtra("origin", origin);
     intent.setAction(action);
 
@@ -224,8 +223,22 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     return res.getIdentifier(icon, type, pkgName);
   }
 
-  public static void dispatchOnUIThread(Runnable r) {
+  private static void removeNotificationAfterDelay(Context context, int notificationId, long delay) {
+    dispatchOnUIThreadDelayed(() -> {
+      NotificationManager notificationManager =
+        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+      if (notificationManager != null) {
+        notificationManager.cancel(notificationId);
+      }
+    }, delay);
+  }
+
+  private static void dispatchOnUIThread(Runnable r) {
     sHandler.post(r);
+  }
+
+  private static void dispatchOnUIThreadDelayed(Runnable r, long delay) {
+    sHandler.postDelayed(r, delay);
   }
 
   private String remoteMessageToString(RemoteMessage remoteMessage) {

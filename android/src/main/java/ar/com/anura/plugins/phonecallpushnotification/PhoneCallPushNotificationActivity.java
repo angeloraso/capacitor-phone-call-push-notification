@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class PhoneCallPushNotificationActivity extends AppCompatActivity {
   private static final String TAG = "PhoneCallPushNotificationActivity";
-  private static final String PREFERENCES_KEY = "PhoneCallPushNotificationActivityKey";
+  static final String PREFERENCES_KEY = "PhoneCallPushNotificationActivityKey";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

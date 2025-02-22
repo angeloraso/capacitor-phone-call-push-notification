@@ -18,7 +18,6 @@ import com.getcapacitor.annotation.PermissionCallback;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
-import java.util.Objects;
 
 @CapacitorPlugin(
         name = "PhoneCallPushNotification",
@@ -134,14 +133,14 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
 
     @PluginMethod
     public void getData(PluginCall call) {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("push_notification_storage", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(PhoneCallPushNotificationActivity.PREFERENCES_KEY, Context.MODE_PRIVATE);
         String origin = sharedPreferences.getString("origin", "");
-        String expiration = sharedPreferences.getString("expiration", "");
+        long timestamp = sharedPreferences.getLong("timestamp", 0);
         String response = sharedPreferences.getString("response", "");
 
         JSObject res = new JSObject();
         res.put("origin", origin);
-        res.put("expiration", expiration);
+        res.put("timestamp", timestamp);
         res.put("response", response);
 
         call.resolve(res);
@@ -173,11 +172,10 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
         String answerButtonText = call.getString("answerButtonText");
         String answerButtonColor = call.getString("answerButtonColor");
         String color = call.getString("color");
-        int duration = Objects.requireNonNullElse(call.getInt("duration"), 20000);
         String channelName = call.getString("channelName");
         String channelDescription = call.getString("channelDescription");
 
-        return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, duration, channelName, channelDescription);
+        return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
     }
 
     /**
