@@ -9,6 +9,7 @@ public class PhoneCallPushNotificationSettings {
     public static final String PREFERENCES_KEY = "PhoneCallPushNotificationSettingsKey";
 
     public static final String DEFAULT_ICON = "answer";
+    public static final String DEFAULT_PICTURE = "picture";
     public static final String DEFAULT_DECLINE_BUTTON_TEXT = "Decline";
     public static final String DEFAULT_DECLINE_BUTTON_COLOR = "#E76565";
     public static final String DEFAULT_ANSWER_BUTTON_TEXT = "Answer";
@@ -19,6 +20,7 @@ public class PhoneCallPushNotificationSettings {
 
 
     private String icon;
+    private String picture;
     private String declineButtonText;
     private String declineButtonColor;
     private String answerButtonText;
@@ -27,8 +29,9 @@ public class PhoneCallPushNotificationSettings {
     private String channelName;
     private String channelDescription;
 
-    public PhoneCallPushNotificationSettings(String icon, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription) {
+    public PhoneCallPushNotificationSettings(String icon, String picture, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription) {
         this.icon = icon;
+        this.picture = picture;
         this.declineButtonText = declineButtonText;
         this.declineButtonColor = declineButtonColor;
         this.answerButtonText = answerButtonText;
@@ -44,6 +47,14 @@ public class PhoneCallPushNotificationSettings {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getDeclineButtonText() {
@@ -107,6 +118,7 @@ public class PhoneCallPushNotificationSettings {
         SharedPreferences.Editor editor = prefs.edit();
 
         editor.putString("icon", Objects.requireNonNullElse(settings.getIcon(), DEFAULT_ICON));
+        editor.putString("picture", Objects.requireNonNullElse(settings.getPicture(), DEFAULT_PICTURE));
         editor.putString("declineButtonText", Objects.requireNonNullElse(settings.getDeclineButtonText(), DEFAULT_DECLINE_BUTTON_TEXT));
         editor.putString("declineButtonColor", Objects.requireNonNullElse(settings.getDeclineButtonColor(), DEFAULT_DECLINE_BUTTON_COLOR));
         editor.putString("answerButtonText", Objects.requireNonNullElse(settings.getAnswerButtonText(), DEFAULT_ANSWER_BUTTON_TEXT));
@@ -121,6 +133,7 @@ public class PhoneCallPushNotificationSettings {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
 
         String icon = preferences.getString("icon", DEFAULT_ICON);
+        String picture = preferences.getString("picture", DEFAULT_PICTURE);
         String declineButtonText = preferences.getString("declineButtonText", DEFAULT_DECLINE_BUTTON_TEXT);
         String declineButtonColor = preferences.getString("declineButtonColor", DEFAULT_DECLINE_BUTTON_COLOR);
         String answerButtonText = preferences.getString("answerButtonText", DEFAULT_ANSWER_BUTTON_TEXT);
@@ -129,13 +142,14 @@ public class PhoneCallPushNotificationSettings {
         String channelName = preferences.getString("channelName", DEFAULT_CHANNEL_NAME);
         String channelDescription = preferences.getString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
 
-        return new PhoneCallPushNotificationSettings(icon, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
+        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
     }
 
     public static void clear(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("icon", DEFAULT_ICON);
+        editor.putString("picture", DEFAULT_PICTURE);
         editor.putString("declineButtonText", DEFAULT_DECLINE_BUTTON_TEXT);
         editor.putString("declineButtonColor", DEFAULT_DECLINE_BUTTON_COLOR);
         editor.putString("answerButtonText", DEFAULT_ANSWER_BUTTON_TEXT);

@@ -123,6 +123,7 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 | Prop                     | Type                |
 | ------------------------ | ------------------- |
 | **`icon`**               | <code>string</code> |
+| **`picture`**            | <code>string</code> |
 | **`declineButtonText`**  | <code>string</code> |
 | **`declineButtonColor`** | <code>string</code> |
 | **`answerButtonText`**   | <code>string</code> |

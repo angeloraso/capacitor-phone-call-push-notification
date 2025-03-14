@@ -109,9 +109,16 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
       iconResource = getApplicationContext().getApplicationInfo().icon;
     }
 
+    String pictureName = settings.getPicture();
+    int pictureResource = getIconResId(pictureName);
+    // If no icon at all was found, fall back to the app's icon
+    if (pictureResource == 0) {
+        pictureResource = getApplicationContext().getApplicationInfo().icon;
+    }
+
     // Android 12+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-      Icon icon = Icon.createWithResource(this, iconResource);
+      Icon icon = Icon.createWithResource(this, pictureResource);
       Person caller = new Person.Builder()
         .setIcon(icon)
         .setName(title  + " - " + body)

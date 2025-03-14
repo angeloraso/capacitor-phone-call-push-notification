@@ -2,6 +2,7 @@ import type { PluginListenerHandle } from '@capacitor/core';
 
 export interface NotificationSettings {
   icon: string;
+  picture: string;
   declineButtonText: string;
   declineButtonColor: string;
   answerButtonText: string;
