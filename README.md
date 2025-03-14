@@ -131,6 +131,8 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 | **`color`**              | <code>string</code> |
 | **`channelName`**        | <code>string</code> |
 | **`channelDescription`** | <code>string</code> |
+| **`callingNameKey`**     | <code>string</code> |
+| **`callingNumberKey`**   | <code>string</code> |
 
 
 #### PluginListenerHandle

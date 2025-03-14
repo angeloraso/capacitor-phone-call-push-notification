@@ -17,7 +17,8 @@ public class PhoneCallPushNotificationSettings {
     public static final String DEFAULT_COLOR = "#55335A";
     public static final String DEFAULT_CHANNEL_NAME = "phone-call-push-notification";
     public static final String DEFAULT_CHANNEL_DESCRIPTION = "Phone call push notifications";
-
+    public static final String DEFAULT_CALLING_NAME_KEY = "from_name";
+    public static final String DEFAULT_CALLING_NUMBER_KEY = "from_number";
 
     private String icon;
     private String picture;
@@ -28,8 +29,10 @@ public class PhoneCallPushNotificationSettings {
     private String color;
     private String channelName;
     private String channelDescription;
+    private String callingNameKey;
+    private String callingNumberKey;
 
-    public PhoneCallPushNotificationSettings(String icon, String picture, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription) {
+    public PhoneCallPushNotificationSettings(String icon, String picture, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription, String callingNameKey, String callingNumberKey) {
         this.icon = icon;
         this.picture = picture;
         this.declineButtonText = declineButtonText;
@@ -39,6 +42,8 @@ public class PhoneCallPushNotificationSettings {
         this.color = color;
         this.channelName = channelName;
         this.channelDescription = channelDescription;
+        this.callingNameKey = callingNameKey;
+        this.callingNumberKey = callingNumberKey;
     }
 
     public String getIcon() {
@@ -113,6 +118,22 @@ public class PhoneCallPushNotificationSettings {
         this.channelDescription = channelDescription;
     }
 
+    public String getCallingNameKey() {
+      return callingNameKey;
+    }
+
+    public void setCallingNameKey(String callingNameKey) {
+      this.callingNameKey = callingNameKey;
+    }
+
+    public String getCallingNumberKey() {
+      return callingNumberKey;
+    }
+
+    public void setCallingNumberKey(String callingNumberKey) {
+      this.callingNumberKey = callingNumberKey;
+    }
+
     public static void saveSettings(Context context, PhoneCallPushNotificationSettings settings) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -126,6 +147,8 @@ public class PhoneCallPushNotificationSettings {
         editor.putString("color", Objects.requireNonNullElse(settings.getColor(), DEFAULT_COLOR));
         editor.putString("channelName", Objects.requireNonNullElse(settings.getChannelName(), DEFAULT_CHANNEL_NAME));
         editor.putString("channelDescription", Objects.requireNonNullElse(settings.getChannelDescription(), DEFAULT_CHANNEL_DESCRIPTION));
+        editor.putString("callingNameKey", Objects.requireNonNullElse(settings.getCallingNameKey(), DEFAULT_CALLING_NAME_KEY));
+        editor.putString("callingNumberKey", Objects.requireNonNullElse(settings.getCallingNumberKey(), DEFAULT_CALLING_NUMBER_KEY));
         editor.apply();
     }
 
@@ -141,8 +164,10 @@ public class PhoneCallPushNotificationSettings {
         String color = preferences.getString("color", DEFAULT_COLOR);
         String channelName = preferences.getString("channelName", DEFAULT_CHANNEL_NAME);
         String channelDescription = preferences.getString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
+        String callingNameKey = preferences.getString("callingNameKey", DEFAULT_CALLING_NAME_KEY);
+        String callingNumberKey = preferences.getString("callingNumberKey", DEFAULT_CALLING_NUMBER_KEY);
 
-        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
+        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey);
     }
 
     public static void clear(Context context) {
@@ -157,6 +182,8 @@ public class PhoneCallPushNotificationSettings {
         editor.putString("color", DEFAULT_COLOR);
         editor.putString("channelName", DEFAULT_CHANNEL_NAME);
         editor.putString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
+        editor.putString("callingNameKey", DEFAULT_CALLING_NAME_KEY);
+        editor.putString("callingNumberKey", DEFAULT_CALLING_NUMBER_KEY);
         editor.apply();
     }
 }

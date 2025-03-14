@@ -10,6 +10,8 @@ export interface NotificationSettings {
   color: string;
   channelName: string;
   channelDescription: string;
+  callingNameKey: string;
+  callingNumberKey: string;
 }
 
 export interface PhoneCallPushNotificationPlugin {

@@ -175,8 +175,10 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
         String color = call.getString("color");
         String channelName = call.getString("channelName");
         String channelDescription = call.getString("channelDescription");
+        String callingNameKey = call.getString("callingNameKey");
+        String callingNumberKey = call.getString("callingNumberKey");
 
-        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription);
+        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey);
     }
 
     /**

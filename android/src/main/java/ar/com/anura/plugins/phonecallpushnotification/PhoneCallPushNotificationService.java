@@ -75,9 +75,9 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     int NOTIFICATION_ID = 1740164950;
 
     Map<String, String> data = remoteMessage.getData();
-    String title = data.get("from_display_name");
-    String body = data.get("from_display_name");
-    String origin = data.get("from_display_name");
+    String callingName = data.get(settings.getCallingNameKey());
+    String callingNumber = data.get(settings.getCallingNumberKey());
+    String origin = data.get(settings.getCallingNumberKey()) != null ? data.get(settings.getCallingNumberKey()) : data.get(settings.getCallingNameKey());
     long timestamp = System.currentTimeMillis();
 
     Notification.Builder notificationBuilder = new Notification.Builder(this, settings.getChannelName())
@@ -121,7 +121,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
       Icon icon = Icon.createWithResource(this, pictureResource);
       Person caller = new Person.Builder()
         .setIcon(icon)
-        .setName(title  + " - " + body)
+        .setName(callingName  + " - " + callingNumber)
         .setImportant(true)
         .build();
 
@@ -136,7 +136,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
       notificationBuilder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE);
     } else {
       notificationBuilder.setSmallIcon(iconResource);
-      notificationBuilder.setContentText(title + " - " + body);
+      notificationBuilder.setContentText(callingName + " - " + callingNumber);
 
       Notification.Action declineAction = new Notification.Action.Builder(
         Icon.createWithResource(this, getIconResId("decline", "drawable")),
