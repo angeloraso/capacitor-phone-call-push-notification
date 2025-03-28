@@ -51,6 +51,7 @@ public class PhoneCallPushNotificationSettings {
         this.channelName = channelName;
         this.channelDescription = channelDescription;
         this.callingNameKey = callingNameKey;
+        this.callingNumberKey = callingNumberKey;
         this.typeKey = typeKey;
         this.incomingSessionTypeValue = incomingSessionTypeValue;
         this.notifyTypeValue = notifyTypeValue;
