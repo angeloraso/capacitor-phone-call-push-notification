@@ -32,12 +32,12 @@ public class PhoneCallPushNotificationActivity extends AppCompatActivity {
         notificationManager.cancel(notificationId);
 
         String response = intent.getAction();
-        String origin = intent.getStringExtra("origin");
+        String callId = intent.getStringExtra("callId");
         long timestamp = intent.getLongExtra("timestamp", System.currentTimeMillis());
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("origin", origin);
+        editor.putString("callId", callId);
         editor.putLong("timestamp", timestamp);
         editor.putString("response", response);
         editor.apply();

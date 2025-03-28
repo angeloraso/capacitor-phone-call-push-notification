@@ -64,6 +64,20 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
     PhoneCallPushNotificationSettings settings = PhoneCallPushNotificationSettings.getSettings(context);
+    Map<String, String> data = remoteMessage.getData();
+
+    String type = data.get(settings.getTypeKey());
+
+    if (!Objects.equals(type, settings.getIncomingSessionTypeValue())) {
+      return;
+    }
+
+
+    String callingName = data.get(settings.getCallingNameKey());
+    String callingNumber = data.get(settings.getCallingNumberKey());
+    String callingNumber = data.get(settings.getCallingNumberKey());
+    String callId = data.get('call-id');
+    long timestamp = System.currentTimeMillis();
 
     final NotificationChannel notificationChannel = getNotificationChannel(settings.getChannelName(), settings);
     notificationChannel.setSound(Settings.System.DEFAULT_NOTIFICATION_URI, null);
@@ -74,12 +88,6 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     String ANSWER_ACTION = "answer";
     int NOTIFICATION_ID = 1740164950;
 
-    Map<String, String> data = remoteMessage.getData();
-    String callingName = data.get(settings.getCallingNameKey());
-    String callingNumber = data.get(settings.getCallingNumberKey());
-    String origin = data.get(settings.getCallingNumberKey()) != null ? data.get(settings.getCallingNumberKey()) : data.get(settings.getCallingNameKey());
-    long timestamp = System.currentTimeMillis();
-
     Notification.Builder notificationBuilder = new Notification.Builder(this, settings.getChannelName())
       .setContentTitle(settings.getChannelName())
       .setTicker(settings.getChannelName())
@@ -87,7 +95,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
       .setWhen(System.currentTimeMillis())
       .setVisibility(Notification.VISIBILITY_PUBLIC)
       .setAutoCancel(true)
-      .setContentIntent(getPendingIntent(context, NOTIFICATION_ID, TAP_ACTION, origin, timestamp))
+      .setContentIntent(getPendingIntent(context, NOTIFICATION_ID, TAP_ACTION, callId, timestamp))
       .setColor(Color.parseColor(settings.getColor()))
       .setLocalOnly(true);
 
@@ -127,7 +135,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
 
       Notification.CallStyle notificationStyle;
       notificationStyle =
-        Notification.CallStyle.forIncomingCall(caller, getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, timestamp), getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, timestamp));
+        Notification.CallStyle.forIncomingCall(caller, getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, callId, timestamp), getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, callId, timestamp));
 
       notificationStyle.setAnswerButtonColorHint(Color.parseColor(settings.getAnswerButtonColor()));
       notificationStyle.setDeclineButtonColorHint(Color.parseColor(settings.getDeclineButtonColor()));
@@ -148,7 +156,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
             "</font>",
           Html.FROM_HTML_MODE_LEGACY
         ),
-        getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, origin, timestamp)
+        getPendingIntent(context, NOTIFICATION_ID, DECLINE_ACTION, callId, timestamp)
       ).build();
 
       Notification.Action answerAction = new Notification.Action.Builder(
@@ -161,7 +169,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
             "</font>",
           Html.FROM_HTML_MODE_LEGACY
         ),
-        getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, origin, timestamp)
+        getPendingIntent(context, NOTIFICATION_ID, ANSWER_ACTION, callId, timestamp)
       ).build();
 
       notificationBuilder.setActions(declineAction, answerAction);
@@ -189,12 +197,12 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     return notificationChannel;
   }
 
-  private PendingIntent getPendingIntent(Context context, int notificationId, String action, String origin, long timestamp) {
+  private PendingIntent getPendingIntent(Context context, int notificationId, String action, String callId, long timestamp) {
     Intent intent = new Intent(context, PhoneCallPushNotificationActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     intent.putExtra("notificationId", notificationId);
     intent.putExtra("timestamp", timestamp);
-    intent.putExtra("origin", origin);
+    intent.putExtra("callId", callId);
     intent.setAction(action);
 
     return PendingIntent.getActivity(

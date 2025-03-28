@@ -53,10 +53,10 @@ requestPermissions() => Promise<PermissionStatus>
 ### getData()
 
 ```typescript
-getData() => Promise<{ response: string; origin: string; timestamp: number; }>
+getData() => Promise<{ response: string; callId: string; timestamp: number; }>
 ```
 
-**Returns:** <code>Promise&lt;{ response: string; origin: string; timestamp: number; }&gt;</code>
+**Returns:** <code>Promise&lt;{ response: string; callId: string; timestamp: number; }&gt;</code>
 
 --------------------
 
@@ -120,19 +120,23 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 
 #### NotificationSettings
 
-| Prop                     | Type                |
-| ------------------------ | ------------------- |
-| **`icon`**               | <code>string</code> |
-| **`picture`**            | <code>string</code> |
-| **`declineButtonText`**  | <code>string</code> |
-| **`declineButtonColor`** | <code>string</code> |
-| **`answerButtonText`**   | <code>string</code> |
-| **`answerButtonColor`**  | <code>string</code> |
-| **`color`**              | <code>string</code> |
-| **`channelName`**        | <code>string</code> |
-| **`channelDescription`** | <code>string</code> |
-| **`callingNameKey`**     | <code>string</code> |
-| **`callingNumberKey`**   | <code>string</code> |
+| Prop                           | Type                |
+| ------------------------------ | ------------------- |
+| **`icon`**                     | <code>string</code> |
+| **`picture`**                  | <code>string</code> |
+| **`declineButtonText`**        | <code>string</code> |
+| **`declineButtonColor`**       | <code>string</code> |
+| **`answerButtonText`**         | <code>string</code> |
+| **`answerButtonColor`**        | <code>string</code> |
+| **`color`**                    | <code>string</code> |
+| **`channelName`**              | <code>string</code> |
+| **`channelDescription`**       | <code>string</code> |
+| **`callingNameKey`**           | <code>string</code> |
+| **`callingNumberKey`**         | <code>string</code> |
+| **`typeKey`**                  | <code>string</code> |
+| **`incomingSessionTypeValue`** | <code>string</code> |
+| **`notifyTypeValue`**          | <code>string</code> |
+| **`registrationTypeValue`**    | <code>string</code> |
 
 
 #### PluginListenerHandle

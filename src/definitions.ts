@@ -12,12 +12,16 @@ export interface NotificationSettings {
   channelDescription: string;
   callingNameKey: string;
   callingNumberKey: string;
+  typeKey: string;
+  incomingSessionTypeValue: string;
+  notifyTypeValue: string;
+  registrationTypeValue: string;
 }
 
 export interface PhoneCallPushNotificationPlugin {
   checkPermissions(): Promise<PermissionStatus>;
   requestPermissions(): Promise<PermissionStatus>;
-  getData(): Promise<{response: string, origin: string, timestamp: number}>;
+  getData(): Promise<{response: string, callId: string, timestamp: number}>;
   register(data?: Partial<NotificationSettings>): Promise<void>;
   unregister(): Promise<void>;
   addListener(

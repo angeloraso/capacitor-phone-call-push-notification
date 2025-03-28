@@ -19,6 +19,10 @@ public class PhoneCallPushNotificationSettings {
     public static final String DEFAULT_CHANNEL_DESCRIPTION = "Phone call push notifications";
     public static final String DEFAULT_CALLING_NAME_KEY = "from_name";
     public static final String DEFAULT_CALLING_NUMBER_KEY = "from_number";
+    public static final String DEFAULT_TYPE_KEY = "type";
+    public static final String DEFAULT_INCOMING_SESSION_TYPE_VALUE = "incoming";
+    public static final String DEFAULT_NOTIFY_TYPE_VALUE = "notify";
+    public static final String DEFAULT_REGISTRATION_TYPE_VALUE = "registration";
 
     private String icon;
     private String picture;
@@ -31,8 +35,12 @@ public class PhoneCallPushNotificationSettings {
     private String channelDescription;
     private String callingNameKey;
     private String callingNumberKey;
+    private String typeKey;
+    private String incomingSessionTypeValue;
+    private String notifyTypeValue;
+    private String registrationTypeValue;
 
-    public PhoneCallPushNotificationSettings(String icon, String picture, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription, String callingNameKey, String callingNumberKey) {
+    public PhoneCallPushNotificationSettings(String icon, String picture, String declineButtonText, String declineButtonColor, String answerButtonText, String answerButtonColor, String color, String channelName, String channelDescription, String callingNameKey, String callingNumberKey, String typeKey, String incomingSessionTypeValue, String notifyTypeValue, String registrationTypeValue) {
         this.icon = icon;
         this.picture = picture;
         this.declineButtonText = declineButtonText;
@@ -43,7 +51,10 @@ public class PhoneCallPushNotificationSettings {
         this.channelName = channelName;
         this.channelDescription = channelDescription;
         this.callingNameKey = callingNameKey;
-        this.callingNumberKey = callingNumberKey;
+        this.typeKey = typeKey;
+        this.incomingSessionTypeValue = incomingSessionTypeValue;
+        this.notifyTypeValue = notifyTypeValue;
+        this.registrationTypeValue = registrationTypeValue;
     }
 
     public String getIcon() {
@@ -119,19 +130,51 @@ public class PhoneCallPushNotificationSettings {
     }
 
     public String getCallingNameKey() {
-      return callingNameKey;
+        return callingNameKey;
     }
 
     public void setCallingNameKey(String callingNameKey) {
-      this.callingNameKey = callingNameKey;
+        this.callingNameKey = callingNameKey;
     }
 
     public String getCallingNumberKey() {
-      return callingNumberKey;
+        return callingNumberKey;
     }
 
     public void setCallingNumberKey(String callingNumberKey) {
-      this.callingNumberKey = callingNumberKey;
+        this.callingNumberKey = callingNumberKey;
+    }
+
+    public String getTypeKey() {
+        return typeKey;
+    }
+
+    public void setTypeKey(String typeKey) {
+        this.typeKey = typeKey;
+    }
+
+    public String getIncomingSessionTypeValue() {
+        return incomingSessionTypeValue;
+    }
+
+    public void setIncomingSessionTypeValue(String incomingSessionTypeValue) {
+        this.incomingSessionTypeValue = incomingSessionTypeValue;
+    }
+
+    public String getNotifyTypeValue() {
+        return notifyTypeValue;
+    }
+
+    public void setNotifyTypeValue(String notifyTypeValue) {
+        this.notifyTypeValue = notifyTypeValue;
+    }
+
+    public String getRegistrationTypeValue() {
+        return registrationTypeValue;
+    }
+
+    public void setRegistrationTypeValue(String registrationTypeValue) {
+        this.registrationTypeValue = registrationTypeValue;
     }
 
     public static void saveSettings(Context context, PhoneCallPushNotificationSettings settings) {
@@ -149,6 +192,10 @@ public class PhoneCallPushNotificationSettings {
         editor.putString("channelDescription", Objects.requireNonNullElse(settings.getChannelDescription(), DEFAULT_CHANNEL_DESCRIPTION));
         editor.putString("callingNameKey", Objects.requireNonNullElse(settings.getCallingNameKey(), DEFAULT_CALLING_NAME_KEY));
         editor.putString("callingNumberKey", Objects.requireNonNullElse(settings.getCallingNumberKey(), DEFAULT_CALLING_NUMBER_KEY));
+        editor.putString("typeKey", Objects.requireNonNullElse(settings.getTypeKey(), DEFAULT_TYPE_KEY));
+        editor.putString("incomingSessionTypeValue", Objects.requireNonNullElse(settings.getIncomingSessionTypeValue(), DEFAULT_INCOMING_SESSION_TYPE_VALUE));
+        editor.putString("notifyTypeValue", Objects.requireNonNullElse(settings.getNotifyTypeValue(), DEFAULT_NOTIFY_TYPE_VALUE));
+        editor.putString("registrationTypeValue", Objects.requireNonNullElse(settings.getRegistrationTypeValue(), DEFAULT_REGISTRATION_TYPE_VALUE));
         editor.apply();
     }
 
@@ -166,8 +213,12 @@ public class PhoneCallPushNotificationSettings {
         String channelDescription = preferences.getString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
         String callingNameKey = preferences.getString("callingNameKey", DEFAULT_CALLING_NAME_KEY);
         String callingNumberKey = preferences.getString("callingNumberKey", DEFAULT_CALLING_NUMBER_KEY);
+        String typeKey = preferences.getString("typeKey", DEFAULT_TYPE_KEY);
+        String incomingSessionTypeValue = preferences.getString("incomingSessionTypeValue", DEFAULT_INCOMING_SESSION_TYPE_VALUE);
+        String notifyTypeValue = preferences.getString("notifyTypeValue", DEFAULT_NOTIFY_TYPE_VALUE);
+        String registrationTypeValue = preferences.getString("registrationTypeValue", DEFAULT_REGISTRATION_TYPE_VALUE);
 
-        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey);
+        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey, typeKey, incomingSessionTypeValue, notifyTypeValue, registrationTypeValue);
     }
 
     public static void clear(Context context) {
@@ -184,6 +235,10 @@ public class PhoneCallPushNotificationSettings {
         editor.putString("channelDescription", DEFAULT_CHANNEL_DESCRIPTION);
         editor.putString("callingNameKey", DEFAULT_CALLING_NAME_KEY);
         editor.putString("callingNumberKey", DEFAULT_CALLING_NUMBER_KEY);
+        editor.putString("typeKey", DEFAULT_TYPE_KEY);
+        editor.putString("incomingSessionTypeValue", DEFAULT_INCOMING_SESSION_TYPE_VALUE);
+        editor.putString("notifyTypeValue", DEFAULT_NOTIFY_TYPE_VALUE);
+        editor.putString("registrationTypeValue", DEFAULT_REGISTRATION_TYPE_VALUE);
         editor.apply();
     }
 }

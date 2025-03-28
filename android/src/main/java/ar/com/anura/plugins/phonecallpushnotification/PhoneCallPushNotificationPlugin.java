@@ -134,12 +134,12 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
     @PluginMethod
     public void getData(PluginCall call) {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(PhoneCallPushNotificationActivity.PREFERENCES_KEY, Context.MODE_PRIVATE);
-        String origin = sharedPreferences.getString("origin", "");
+        String callId = sharedPreferences.getString("callId", "");
         long timestamp = sharedPreferences.getLong("timestamp", 0);
         String response = sharedPreferences.getString("response", "");
 
         JSObject res = new JSObject();
-        res.put("origin", origin);
+        res.put("callId", callId);
         res.put("timestamp", timestamp);
         res.put("response", response);
 
@@ -177,8 +177,12 @@ public class PhoneCallPushNotificationPlugin extends Plugin {
         String channelDescription = call.getString("channelDescription");
         String callingNameKey = call.getString("callingNameKey");
         String callingNumberKey = call.getString("callingNumberKey");
+        String typeKey = call.getString("typeKey");
+        String incomingSessionTypeValue = call.getString("incomingSessionTypeValue");
+        String notifyTypeValue = call.getString("notifyTypeValue");
+        String registrationTypeValue = call.getString("registrationTypeValue");
 
-        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey);
+        return new PhoneCallPushNotificationSettings(icon, picture, declineButtonText, declineButtonColor, answerButtonText, answerButtonColor, color, channelName, channelDescription, callingNameKey, callingNumberKey, typeKey, incomingSessionTypeValue, notifyTypeValue, registrationTypeValue);
     }
 
     /**
