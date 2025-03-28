@@ -28,6 +28,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONObject;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class PhoneCallPushNotificationService extends FirebaseMessagingService {
     private static final Handler sHandler = new Handler(Looper.getMainLooper());
@@ -75,8 +76,7 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
 
     String callingName = data.get(settings.getCallingNameKey());
     String callingNumber = data.get(settings.getCallingNumberKey());
-    String callingNumber = data.get(settings.getCallingNumberKey());
-    String callId = data.get('call-id');
+    String callId = data.get("call-id");
     long timestamp = System.currentTimeMillis();
 
     final NotificationChannel notificationChannel = getNotificationChannel(settings.getChannelName(), settings);
