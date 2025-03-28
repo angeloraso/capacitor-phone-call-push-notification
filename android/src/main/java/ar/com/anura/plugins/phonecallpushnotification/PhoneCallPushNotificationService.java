@@ -75,7 +75,15 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
 
 
     String callingName = data.get(settings.getCallingNameKey());
+    if (callingName != null && callingName.startsWith("\"") && callingName.endsWith("\"")) {
+      callingName = callingName.substring(1, callingName.length() - 1);
+    }
+    
     String callingNumber = data.get(settings.getCallingNumberKey());
+    if (callingNumber != null && callingNumber.startsWith("\"") && callingNumber.endsWith("\"")) {
+      callingNumber = callingNumber.substring(1, callingNumber.length() - 1);
+    }
+    
     String callId = data.get("call-id");
     long timestamp = System.currentTimeMillis();
 
