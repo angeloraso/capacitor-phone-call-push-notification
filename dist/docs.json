@@ -1,0 +1,285 @@
+{
+  "api": {
+    "name": "PhoneCallPushNotificationPlugin",
+    "slug": "phonecallpushnotificationplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "checkPermissions",
+        "signature": "() => Promise<PermissionStatus>",
+        "parameters": [],
+        "returns": "Promise<any>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PermissionStatus"
+        ],
+        "slug": "checkpermissions"
+      },
+      {
+        "name": "requestPermissions",
+        "signature": "() => Promise<PermissionStatus>",
+        "parameters": [],
+        "returns": "Promise<any>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PermissionStatus"
+        ],
+        "slug": "requestpermissions"
+      },
+      {
+        "name": "getData",
+        "signature": "() => Promise<{ response: string; callId: string; timestamp: number; }>",
+        "parameters": [],
+        "returns": "Promise<{ response: string; callId: string; timestamp: number; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "getdata"
+      },
+      {
+        "name": "register",
+        "signature": "(data?: Partial<NotificationSettings> | undefined) => Promise<void>",
+        "parameters": [
+          {
+            "name": "data",
+            "docs": "",
+            "type": "Partial<NotificationSettings> | undefined"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "Partial",
+          "NotificationSettings"
+        ],
+        "slug": "register"
+      },
+      {
+        "name": "unregister",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "unregister"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'onNewToken', listenerFunc: (data: { value: string; }) => void) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'onNewToken'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "(data: { value: string; }) => void"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PluginListenerHandle"
+        ],
+        "slug": "addlisteneronnewtoken-"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, string>; }) => void) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'onNewData'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "(data: { data: Record<string, string>; }) => void"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PluginListenerHandle",
+          "Record"
+        ],
+        "slug": "addlisteneronnewdata-"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "NotificationSettings",
+      "slug": "notificationsettings",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "icon",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "picture",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "declineButtonText",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "declineButtonColor",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "answerButtonText",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "answerButtonColor",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "channelName",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "channelDescription",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "callingNameKey",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "callingNumberKey",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "typeKey",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "incomingSessionTypeValue",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "notifyTypeValue",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "registrationTypeValue",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "PluginListenerHandle",
+      "slug": "pluginlistenerhandle",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "remove",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "() => Promise<void>"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "Partial",
+      "slug": "partial",
+      "docs": "Make all properties in T optional",
+      "types": [
+        {
+          "text": "{\r\n    [P in keyof T]?: T[P];\r\n}",
+          "complexTypes": [
+            "T",
+            "P"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Record",
+      "slug": "record",
+      "docs": "Construct a type with a set of properties K of type T",
+      "types": [
+        {
+          "text": "{\r\n    [P in K]: T;\r\n}",
+          "complexTypes": [
+            "K",
+            "T"
+          ]
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
