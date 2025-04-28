@@ -1,5 +1,9 @@
 import type { PluginListenerHandle } from '@capacitor/core';
 
+export interface NotificationPermissionStatus {
+  notifications: PermissionState;
+}
+
 export interface NotificationSettings {
   icon: string;
   picture: string;
@@ -19,8 +23,8 @@ export interface NotificationSettings {
 }
 
 export interface PhoneCallPushNotificationPlugin {
-  checkPermissions(): Promise<PermissionStatus>;
-  requestPermissions(): Promise<PermissionStatus>;
+  checkNotificationsPermission(): Promise<NotificationPermissionStatus>;
+  requestNotificationsPermission(): Promise<NotificationPermissionStatus>;
   getData(): Promise<{response: string, callId: string, timestamp: number}>;
   register(data?: Partial<NotificationSettings>): Promise<void>;
   unregister(): Promise<void>;

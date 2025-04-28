@@ -64,6 +64,10 @@ public class PhoneCallPushNotificationService extends FirebaseMessagingService {
   private void showPhoneCallNotification(Context context, RemoteMessage remoteMessage) {
     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
+    if (!notificationManager.areNotificationsEnabled()) {
+      return;
+    }
+
     PhoneCallPushNotificationSettings settings = PhoneCallPushNotificationSettings.getSettings(context);
     Map<String, String> data = remoteMessage.getData();
 
