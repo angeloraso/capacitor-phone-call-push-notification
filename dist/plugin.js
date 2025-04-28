@@ -6,10 +6,10 @@ var capacitorPhoneCallPushNotification = (function (exports, core) {
     });
 
     class PhoneCallPushNotificationWeb extends core.WebPlugin {
-        async checkPermissions() {
+        async checkNotificationsPermission() {
             throw this.unimplemented('Not implemented on web.');
         }
-        async requestPermissions() {
+        async requestNotificationsPermission() {
             throw this.unimplemented('Not implemented on web.');
         }
         async getData() {

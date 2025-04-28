@@ -6,28 +6,28 @@
     "tags": [],
     "methods": [
       {
-        "name": "checkPermissions",
-        "signature": "() => Promise<PermissionStatus>",
+        "name": "checkNotificationsPermission",
+        "signature": "() => Promise<NotificationPermissionStatus>",
         "parameters": [],
-        "returns": "Promise<any>",
+        "returns": "Promise<NotificationPermissionStatus>",
         "tags": [],
         "docs": "",
         "complexTypes": [
-          "PermissionStatus"
+          "NotificationPermissionStatus"
         ],
-        "slug": "checkpermissions"
+        "slug": "checknotificationspermission"
       },
       {
-        "name": "requestPermissions",
-        "signature": "() => Promise<PermissionStatus>",
+        "name": "requestNotificationsPermission",
+        "signature": "() => Promise<NotificationPermissionStatus>",
         "parameters": [],
-        "returns": "Promise<any>",
+        "returns": "Promise<NotificationPermissionStatus>",
         "tags": [],
         "docs": "",
         "complexTypes": [
-          "PermissionStatus"
+          "NotificationPermissionStatus"
         ],
-        "slug": "requestpermissions"
+        "slug": "requestnotificationspermission"
       },
       {
         "name": "getData",
@@ -119,6 +119,24 @@
     "properties": []
   },
   "interfaces": [
+    {
+      "name": "NotificationPermissionStatus",
+      "slug": "notificationpermissionstatus",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "notifications",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "PermissionState"
+          ],
+          "type": "PermissionState"
+        }
+      ]
+    },
     {
       "name": "NotificationSettings",
       "slug": "notificationsettings",
@@ -252,6 +270,29 @@
   ],
   "enums": [],
   "typeAliases": [
+    {
+      "name": "PermissionState",
+      "slug": "permissionstate",
+      "docs": "",
+      "types": [
+        {
+          "text": "'prompt'",
+          "complexTypes": []
+        },
+        {
+          "text": "'prompt-with-rationale'",
+          "complexTypes": []
+        },
+        {
+          "text": "'granted'",
+          "complexTypes": []
+        },
+        {
+          "text": "'denied'",
+          "complexTypes": []
+        }
+      ]
+    },
     {
       "name": "Partial",
       "slug": "partial",

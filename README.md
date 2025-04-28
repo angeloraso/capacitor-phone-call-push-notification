@@ -13,8 +13,8 @@ npx cap sync
 
 <docgen-index>
 
-* [`checkPermissions()`](#checkpermissions)
-* [`requestPermissions()`](#requestpermissions)
+* [`checkNotificationsPermission()`](#checknotificationspermission)
+* [`requestNotificationsPermission()`](#requestnotificationspermission)
 * [`getData()`](#getdata)
 * [`register(...)`](#register)
 * [`unregister()`](#unregister)
@@ -28,24 +28,24 @@ npx cap sync
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### checkPermissions()
+### checkNotificationsPermission()
 
 ```typescript
-checkPermissions() => Promise<PermissionStatus>
+checkNotificationsPermission() => Promise<NotificationPermissionStatus>
 ```
 
-**Returns:** <code>Promise&lt;any&gt;</code>
+**Returns:** <code>Promise&lt;<a href="#notificationpermissionstatus">NotificationPermissionStatus</a>&gt;</code>
 
 --------------------
 
 
-### requestPermissions()
+### requestNotificationsPermission()
 
 ```typescript
-requestPermissions() => Promise<PermissionStatus>
+requestNotificationsPermission() => Promise<NotificationPermissionStatus>
 ```
 
-**Returns:** <code>Promise&lt;any&gt;</code>
+**Returns:** <code>Promise&lt;<a href="#notificationpermissionstatus">NotificationPermissionStatus</a>&gt;</code>
 
 --------------------
 
@@ -118,6 +118,13 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 ### Interfaces
 
 
+#### NotificationPermissionStatus
+
+| Prop                | Type                                                        |
+| ------------------- | ----------------------------------------------------------- |
+| **`notifications`** | <code><a href="#permissionstate">PermissionState</a></code> |
+
+
 #### NotificationSettings
 
 | Prop                           | Type                |
@@ -147,6 +154,11 @@ addListener(eventName: 'onNewData', listenerFunc: (data: { data: Record<string, 
 
 
 ### Type Aliases
+
+
+#### PermissionState
+
+<code>'prompt' | 'prompt-with-rationale' | 'granted' | 'denied'</code>
 
 
 #### Partial

@@ -1,9 +1,9 @@
 import { WebPlugin } from '@capacitor/core';
 export class PhoneCallPushNotificationWeb extends WebPlugin {
-    async checkPermissions() {
+    async checkNotificationsPermission() {
         throw this.unimplemented('Not implemented on web.');
     }
-    async requestPermissions() {
+    async requestNotificationsPermission() {
         throw this.unimplemented('Not implemented on web.');
     }
     async getData() {
